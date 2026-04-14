@@ -137,10 +137,4 @@ python chatbot.py
 
 ---
 
-## 💻 Push README to GitHub
-
-```bash
-git add .
-git commit -m "Added README file"
-git push
-
+#
