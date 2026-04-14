@@ -95,17 +95,6 @@ BOT_CONFIG = {
 
 ---
 
-## 📄 Resume Project Description
-
-**NexusAI — Production-Level AI Chatbot** | Python, Flask, OpenAI API, SQLite
-
-Engineered a full-stack conversational AI web application from the ground up, featuring
-multi-turn context awareness using the OpenAI GPT-3.5 API, keyword-based intent recognition,
-and persistent per-user chat history stored in SQLite. Implemented secure user authentication
-with SHA-256 password hashing, structured application logging, and a responsive dark-mode
-web interface built with Flask and vanilla JavaScript. Designed for production deployment
-with environment-based configuration, clean modular architecture, and Render/HuggingFace
-Spaces compatibility.
 
 **Key Technologies:** Python · Flask · OpenAI API · SQLite · HTML/CSS/JS · REST APIs · NLP
 
