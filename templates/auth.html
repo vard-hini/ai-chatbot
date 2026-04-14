@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>{{ mode | capitalize }} — NexusAI</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #0f0f1a; color: #e0e0f0;
+      display: flex; align-items: center; justify-content: center; height: 100vh;
+    }
+    .card {
+      background: #1a1a2e; border: 1px solid #2a2a4a;
+      border-radius: 18px; padding: 40px 36px; width: 340px;
+      box-shadow: 0 8px 40px rgba(124,131,253,0.12);
+    }
+    h2 { color: #7c83fd; margin-bottom: 28px; font-size: 1.4rem; text-align: center; }
+    input {
+      width: 100%; padding: 12px 14px; margin-bottom: 14px;
+      border-radius: 10px; border: 1px solid #2a2a4a;
+      background: #0f0f1a; color: #e0e0f0; font-size: 0.95rem; outline: none;
+    }
+    input:focus { border-color: #7c83fd; }
+    button {
+      width: 100%; padding: 13px; border-radius: 10px; border: none;
+      background: #7c83fd; color: #fff; font-size: 1rem; cursor: pointer; margin-top: 4px;
+    }
+    button:hover { background: #5a63e8; }
+    .switch { text-align: center; margin-top: 18px; font-size: 0.88rem; color: #888; }
+    .switch a { color: #7c83fd; text-decoration: none; }
+    #msg { text-align: center; margin-top: 12px; font-size: 0.88rem; min-height: 18px; }
+    .err { color: #ff6b6b; } .ok { color: #6bffb8; }
+  </style>
+</head>
+<body>
+<div class="card">
+  <h2>🤖 NexusAI — {{ mode | capitalize }}</h2>
+  <input id="username" type="text" placeholder="Username" />
+  <input id="password" type="password" placeholder="Password" onkeydown="if(event.key==='Enter')submit()" />
+  <button onclick="submit()">{{ mode | capitalize }}</button>
+  <div id="msg"></div>
+  <div class="switch">
+    {% if mode == 'login' %}
+      No account? <a href="/register">Register</a>
+    {% else %}
+      Have an account? <a href="/login">Login</a>
+    {% endif %}
+  </div>
+</div>
+<script>
+  const MODE = "{{ mode }}";
+  async function submit() {
+    const username = document.getElementById('username').value.trim();
+    const password = document.getElementById('password').value.trim();
+    const msgEl = document.getElementById('msg');
+    if (!username || !password) { msgEl.textContent='Fill in all fields.'; msgEl.className='err'; return; }
+    const res = await fetch(`/${MODE}`, {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({username, password})
+    });
+    const data = await res.json();
+    if (res.ok) {
+      msgEl.textContent = data.message; msgEl.className = 'ok';
+      setTimeout(() => window.location.href = '/', 700);
+    } else {
+      msgEl.textContent = data.error; msgEl.className = 'err';
+    }
+  }
+</script>
+</body>
+</html>
